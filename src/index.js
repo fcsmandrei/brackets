@@ -13,7 +13,7 @@ module.exports = function check(str, bracketsConfig) {
         
         if(bracketsConfig[i][0] === strToArr[j]) {
   			stackBrackets.push(strToArr[j]);
-           if(stackBrackets[stackBrackets.length - 1] =="|" && stackBrackets[stackBrackets.length - 2] == "|"){
+           if((stackBrackets[stackBrackets.length - 1] =="|" && stackBrackets[stackBrackets.length - 2] == "|") || (stackBrackets[stackBrackets.length - 1] =="7" && stackBrackets[stackBrackets.length - 2] == "7") || (stackBrackets[stackBrackets.length - 1] =="8" && stackBrackets[stackBrackets.length - 2] == "8") ){
             stackBrackets.pop();
             stackBrackets.pop();
           }
