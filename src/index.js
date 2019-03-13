@@ -7,28 +7,24 @@ module.exports = function check(str, bracketsConfig) {
 
 	
   		
-  for( var i = 0, bracketsConfigLen =  bracketsConfig.length; i < bracketsConfigLen; i++) {
+  
   	for(var j = 0, strLen =strToArr.length; j < strLen; j++) {
-
-  		if(bracketsConfig[i][0] === strToArr[j]) {
+      for( var i = 0, bracketsConfigLen =  bracketsConfig.length; i < bracketsConfigLen; i++) {
+        
+        if(bracketsConfig[i][0] === strToArr[j]) {
   			stackBrackets.push(strToArr[j]);
-  		} else if (bracketsConfig[i][1] === strToArr[j] &&  stackBrackets.length > 0) {
+           if(stackBrackets[stackBrackets.length - 1] =="|" && stackBrackets[stackBrackets.length - 2] == "|"){
+            stackBrackets.pop();
+            stackBrackets.pop();
+          }
+  		} else if (bracketsConfig[i][1] === strToArr[j] && bracketsConfig[i][0] == stackBrackets[stackBrackets.length - 1])  {
   			stackBrackets.pop();
-  		} 
-
+  		} else { result1 = false;}      
+      }   		
   	}  	
-  }
-  for(var k=0; k < stackBrackets.length; k++) {
-  	if(stackBrackets[k] == "|") {
-  		delete stackBrackets[k];
-  	}
-  }
 
-  var filtered = stackBrackets.filter(function (el) {
-	  return el != null;
-	});
-
-  if(filtered.length == 0 ) {
+  
+  if(stackBrackets.length == 0 ) {
   	result = true ;
   } else {
   	result = false;
