@@ -1,28 +1,25 @@
 module.exports = function check(str, bracketsConfig) {
-  var strToArr = str.split("");
-	var stackBrackets = [];
-	var removeSlash;
-	var result,
-			result1;
-
-	
-  		
+  let strToArr = str.split("");
+  let stackBrackets = [];
+  let strLen =strToArr.length;
+  let bracketsConfigLen =  bracketsConfig.length;
+  let result;
   
-  	for(var j = 0, strLen =strToArr.length; j < strLen; j++) {
-      for( var i = 0, bracketsConfigLen =  bracketsConfig.length; i < bracketsConfigLen; i++) {
-        
-        if(bracketsConfig[i][0] === strToArr[j]) {
-  			stackBrackets.push(strToArr[j]);
-           if((stackBrackets[stackBrackets.length - 1] =="|" && stackBrackets[stackBrackets.length - 2] == "|") || (stackBrackets[stackBrackets.length - 1] =="7" && stackBrackets[stackBrackets.length - 2] == "7") || (stackBrackets[stackBrackets.length - 1] =="8" && stackBrackets[stackBrackets.length - 2] == "8") ){
-            stackBrackets.pop();
-            stackBrackets.pop();
-          }
-  		} else if (bracketsConfig[i][1] === strToArr[j] && bracketsConfig[i][0] == stackBrackets[stackBrackets.length - 1])  {
-  			stackBrackets.pop();
-  		} else { result1 = false;}      
-      }   		
-  	}  	
+  for(let j = 0; j < strLen; j++) {
+    for( let i = 0; i < bracketsConfigLen; i++) {
 
+      if(bracketsConfig[i][0] === strToArr[j]) {
+          stackBrackets.push(strToArr[j]);
+         if((stackBrackets[stackBrackets.length - 1] === stackBrackets[stackBrackets.length - 2]) && (bracketsConfig[i][0] === bracketsConfig[i][1])){
+          stackBrackets.pop();
+          stackBrackets.pop();
+        }
+      } else if (bracketsConfig[i][1] === strToArr[j] && bracketsConfig[i][0] == stackBrackets[stackBrackets.length - 1])  {
+          stackBrackets.pop();
+      }
+      
+    }   		
+  }  	
   
   if(stackBrackets.length == 0 && strLen%2 == 0) {
   	result = true ;
@@ -33,17 +30,3 @@ module.exports = function check(str, bracketsConfig) {
   return result;
 }
 
-/*check('()', [['(', ')']]) // -> true
-check('((()))()', [['(', ')']]) // -> true
-check('())(', [['(', ')']]) // -> false
-check('([{}])', [['(', ')'], ['[', ']'], ['{', '}']]) // -> true
-check('[(])', [['(', ')'], ['[', ']']]) // -> false
-check('[]()', [['(', ')'], ['[', ']']]) // -> true
-check('[]()(', [['(', ')'], ['[', ']']]) // -> false
-
-// special case: opening and closing bracket can be the same :)
-
-check('||', [['|', '|']]) // -> true
-check('|()|', [['(', ')'], ['|', '|']]) // -> true
-check('|(|)', [['(', ')'], ['|', '|']]) // -> false
-check('|()|(||)||', [['(', ')'], ['|', '|']]) // -> true*/
